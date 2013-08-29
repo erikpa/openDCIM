@@ -226,7 +226,10 @@
 			$errclass=($i>$cab->CabinetHeight)?' class="error"':'';
 			if($errclass!=''){$heighterr="yup";}
 			if($i==$devTop){
-				$body.="<tr><td$errclass>$i</td><td class=\"device$reserved dept$device->Owner\" rowspan=$device->Height data=$devID><a href=\"devices.php?deviceid=$devID\">$highlight $device->Label</a></td></tr>\n";
+				//Start Add by Erik
+				//$body.="<tr><td$errclass>$i</td><td class=\"device$reserved dept$device->Owner\" rowspan=$device->Height data=$devID><a href=\"devices.php?deviceid=$devID\">$highlight $device->Label</a></td></tr>\n";
+				$body.="<tr><td$errclass>$i</td><td class=\"device$reserved dept$device->Owner\" rowspan=$device->Height data=$devID><a href=\"devices.php?deviceid=$devID\">$        highlight $device->Label</a><a href=\"http://$device->AssetTag\" target=\"new\">  ILO</a></td></tr>\n";
+				//End Add by Erik
 			}else{
 				$body.="<tr><td$errclass>$i</td></tr>\n";
 			}
