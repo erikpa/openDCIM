@@ -435,8 +435,10 @@ class PowerDistribution {
 			unset( $statsOutput );
 			$amps = 0;
 			$watts = 0;
-			
-			$pollCommand = sprintf( "%s -v 2c -t 0.5 -r 2 -c %s %s %s | /bin/cut -d: -f4", $command, $row["SNMPCommunity"], $row["IPAddress"], $OIDString );
+			// Start Add by Erik
+			//$pollCommand = sprintf( "%s -v 2c -t 0.5 -r 2 -c %s %s %s | /bin/cut -d: -f4", $command, $row["SNMPCommunity"], $row["IPAddress"], $OIDString );
+			$pollCommand = sprintf( "%s -v 2c -t 5 -r 2 -c %s %s %s | /bin/cut -d: -f4", $command, $row["SNMPCommunity"], $row["IPAddress"], $OIDString );
+			// End Add by Erik
 			
 			exec( $pollCommand, $statsOutput );
 			
@@ -480,7 +482,10 @@ class PowerDistribution {
 		} else {
 			$serverIP = $this->IPAddress;
 			$community = $this->SNMPCommunity;
-			$pollCommand = "/usr/bin/snmpget -v 2c -t 0.5 -r 2 -c $community $serverIP sysUpTimeInstance";
+			// Start Add By Erik
+			//$pollCommand = "/usr/bin/snmpget -v 2c -t 0.5 -r 2 -c $community $serverIP sysUpTimeInstance";
+			$pollCommand = "/usr/bin/snmpget -v 2c -t 5 -r 2 -c $community $serverIP sysUpTimeInstance";
+			//End Add by Erik
 
 			exec($pollCommand, $statsOutput);
 			// need error checking here
@@ -509,8 +514,10 @@ class PowerDistribution {
 			$community = $this->SNMPCommunity;
 
 			$command = "/usr/bin/snmpget";
-			
-			$pollCommand = sprintf( "%s -v 2c -t 0.5 -r 2 -c %s %s %s", $command, $this->SNMPCommunity, $this->IPAddress, $template->VersionOID );
+			// Start Add By Erik
+			//$pollCommand = sprintf( "%s -v 2c -t 0.5 -r 2 -c %s %s %s", $command, $this->SNMPCommunity, $this->IPAddress, $template->VersionOID );
+			$pollCommand = sprintf( "%s -v 2c -t 5 -r 2 -c %s %s %s", $command, $this->SNMPCommunity, $this->IPAddress, $template->VersionOID );
+			//End Add by Erik
 
 			exec( $pollCommand, $statsOutput );
 			// need error checking here
