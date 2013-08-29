@@ -1190,6 +1190,9 @@ echo '				</select></div>
 			if(isset($config->ParameterArray['UserLookupURL']) && isValidURL($config->ParameterArray['UserLookupURL']) && isset($contactUserID)){
 				print "<button type=\"button\" onclick=\"window.open( '".$config->ParameterArray["UserLookupURL"]."$contactUserID', 'UserLookup')\">".__('Contact Lookup')."</button>\n";
 			}
+			//Start Add by Erik
+			exec ('/root/scripts/apache/RunonData.sh '.$dev->Label,$runon );
+			//End Add by Erik
 
 echo '		   </div>
 		</div>
@@ -1369,7 +1372,9 @@ echo '		<div class="caption">
 	
 	// Do not display ESX block if device isn't a virtual server and the user doesn't have write access
 	if(($user->WriteAccess || $dev->ESX) && ($dev->DeviceType=="Server" || $dev->DeviceType=="")){
-		echo '<fieldset>	<legend>',__("VMWare ESX Server Information"),'</legend>';
+		// STart Add by Erik
+		//echo '<fieldset>	<legend>',__("VMWare ESX Server Information"),'</legend>';
+		echo '<fieldset>        <legend>',__("VMWare ESX/OpenStack/Solaris Zone Server Information"),'</legend>';
 	// If the user doesn't have write access display the list of VMs but not the configuration information.
 		if($user->WriteAccess){
 
