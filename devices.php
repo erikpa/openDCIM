@@ -2,6 +2,11 @@
 	require_once( 'db.inc.php' );
 	require_once( 'facilities.inc.php' );
 
+        //Start Add by ERIK
+        //$esx = new ESX();
+        //$esx->UpdateInventory( $facDB );
+        //End Add By Erik
+        
 	$dev=new Device();
 	$cab=new Cabinet();
 	$user=new User();
