@@ -48,7 +48,10 @@ class PDF extends FPDF {
     	$this->Image( 'images/' . $this->pdfconfig->ParameterArray['PDFLogoFile'],10,8,100);
     	$this->SetFont($this->pdfconfig->ParameterArray['PDFfont'],'B',12);
     	$this->Cell(120);
-    	$this->Cell(30,20,__("Information Technology Services"),0,0,'C');
+    	// Start Add By Erik
+        $this->Cell(50,20,__("Liveperson Production Operation"),0,0,'C');
+       	//$this->Cell(30,20,__("Information Technology Services"),0,0,'C');
+       	//end Add BY Erik
     	$this->Ln(20);
 		$this->SetFont( $this->pdfconfig->ParameterArray['PDFfont'],'',10 );
 		$this->Cell( 50, 6, __("Cabinet Audit Report"), 0, 1, 'L' );
@@ -401,10 +404,16 @@ class PDF_Diag extends PDF_Sector {
 	$cabmessage=__("Cabinet Location").': '.$cab->Location;
 	$pdf->SetFont($config->ParameterArray['PDFfont'],'B',10);
 	$pdf->Cell(0,5,$cabmessage,0,1,'C',0);
-	$pdf->SetFont($config->ParameterArray['PDFfont'],'',10);
+	//Start Add By ERIK
+	$pdf->SetFont($config->ParameterArray['PDFfont'],'',6);
+	//$pdf->SetFont($config->ParameterArray['PDFfont'],'',10);
+	//END Add By ERIK
 	$deviceList = $device->ViewDevicesByCabinet( $facDB );
 	$headerTags = array( __('Label'), __('SerialNo'), __('AssetTag'), __('Position'), __('Rack Units'), __('#Ports'), __('#PS'), __('PowerConnection1'), __('PowerConnection2'), __('DeviceType') );
-	$cellWidths = array( 45, 40, 20, 18, 20, 15, 10, 35, 35, 50 );
+	//Start Add By Erik
+	$cellWidths = array( 35, 30, 30, 20, 20, 15, 10, 35, 35, 55 );
+	//$cellWidths = array( 45, 40, 20, 18, 20, 15, 10, 35, 35, 50 );
+	//End Add By Erik
 	$maxval = count( $headerTags );
 	for ( $col = 0; $col < $maxval; $col++ )
 		$pdf->Cell( $cellWidths[$col], 7, $headerTags[$col], 1, 0, 'C', 1 );
@@ -475,7 +484,10 @@ class PDF_Diag extends PDF_Sector {
         $cabmessage=__("PDUs at").' '.$cabmessage;
 	$pdf->SetFont($config->ParameterArray['PDFfont'],'B',10);
 	$pdf->Cell(0,5,$cabmessage,0,1,'C',0);
-	$pdf->SetFont($config->ParameterArray['PDFfont'],'',10);
+	//Start Add by ERIK
+	$pdf->SetFont($config->ParameterArray['PDFfont'],'',6);
+	//$pdf->SetFont($config->ParameterArray['PDFfont'],'',10);
+	//END Add by ERIK
 	$PDUList=$pdu->GetPDUbyCabinet($facDB);
 
 	$headerTags = array( __('Label'), __('NumOutputs'),__('Model'),__('PanelLabel'), __('PanelPole') );
