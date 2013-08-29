@@ -1762,7 +1762,33 @@ class ESX {
     $serverIP=$dev->PrimaryIP;
 
     $vmList=array();
+     //Start Add BY ERIK
+        exec("nslookup $dev->PrimaryIP |grep name|awk '{print $4}'|awk -F. '{print $1}'",$HOST);
+        $host=array_shift( $HOST );
+        if (strpos($host,'veo') !== false OR strpos($host,'stk') !== false) {
+        $pollCommand="sudo /root/scripts/apache/stm18 \"ssh $host \\\"nova-manage vm list $host \\\"\"|awk '{print $1}'|grep -v instance";
+    exec($pollCommand,$namesOutput);
 
+    $pollCommand="sudo /root/scripts/apache/stm18 \"ssh $host \\\"nova-manage vm list $host \\\"\"|awk '{print $4}'|grep -v state";
+    exec($pollCommand,$statesOutput);
+        }
+        if (strpos($host,'ajv') !== false) {
+        $pollCommand="sudo /root/scripts/apache/stm18 \"ssh $host \\\"zoneadm list -cv \\\"\"|egrep -v \"ID|globa\"|awk '{print $2}'";
+    exec($pollCommand,$namesOutput);
+
+    $pollCommand="sudo /root/scripts/apache/stm18 \"ssh $host \\\"zoneadm list -cv \\\"\"|egrep -v \"ID|globa\"|awk '{print $3}'";
+    exec($pollCommand,$statesOutput);
+        }
+        else
+        {
+    $pollCommand="/usr/bin/snmpwalk -v 2c -c $community $serverIP .1.3.6.1.4.1.6876.2.1.1.2 | /bin/cut -d: -f4 | /bin/cut -d\\\" -f2";
+    exec($pollCommand,$namesOutput);
+
+    $pollCommand="/usr/bin/snmpwalk -v 2c -c $community $serverIP .1.3.6.1.4.1.6876.2.1.1.6 | /bin/cut -d: -f4 | /bin/cut -d\\\" -f2";
+    exec($pollCommand,$statesOutput);
+        }
+//End Add By ERIK
+       
     $pollCommand="/usr/bin/snmpwalk -v 2c -c $community $serverIP .1.3.6.1.4.1.6876.2.1.1.2 | /bin/cut -d: -f4 | /bin/cut -d\\\" -f2";
     exec($pollCommand,$namesOutput);
 
